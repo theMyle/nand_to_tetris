@@ -1,0 +1,14 @@
+CHIP Or {
+    IN a, b;
+    OUT out;
+
+    PARTS:
+    // using de morgan's law
+    // a or b = not( not a and not b )
+    //
+    // now lets implement only using nand gates for fun!
+
+    Nand(a=a, b=a, out=notA); // not a
+    Nand(a=b, b=b, out=notB); // not b 
+    Nand(a=notA, b=notB, out=out); // not (not a and not b) [/] we done!
+}

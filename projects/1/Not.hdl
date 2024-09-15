@@ -1,0 +1,14 @@
+CHIP Not {
+    IN in;
+    OUT out;
+
+    PARTS:
+    Nand(a=in, b=in, out=out);
+}
+
+/** Nand(x,x)
+* let x = 0
+* Not(0 and 0) = Not(0) = 1
+* Not(1 and 1) = Not(1) = 0
+*/ 
+
