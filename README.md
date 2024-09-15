@@ -2,10 +2,10 @@
 
 ## Project 1 - Elementary Logic Gates
 
-- [/] Not
-- [/] And
-- [/] Or
-- [/] Xor
+- [x] Not
+- [x] And
+- [x] Or
+- [x] Xor
 - [ ] Mux
 - [ ] DMux
 - [ ] Not16
