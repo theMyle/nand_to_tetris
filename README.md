@@ -1,5 +1,7 @@
 # Nand To Tetris Project Progression
 
+Building a general purpose computer from the ground (nand gates) up
+
 - [x] => Implemented
 - [ ] => Not yet implemented 
 
