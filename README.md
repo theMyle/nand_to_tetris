@@ -1,5 +1,8 @@
 # Nand To Tetris Project Progression
 
+- [x] => Implemented
+- [ ] => Not yet implemented 
+
 ## Project 1 - Elementary Logic Gates
 
 - [x] Not
