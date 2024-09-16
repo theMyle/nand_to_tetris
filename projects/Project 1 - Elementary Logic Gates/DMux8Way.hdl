@@ -1,0 +1,18 @@
+CHIP DMux8Way {
+    IN in, sel[3];
+    OUT a, b, c, d, e, f, g, h;
+
+    PARTS:
+    // same as before, we split into 2
+    DMux(in=in, sel=sel[0], a=first0, b=first1);
+    
+    // we split into 4 using the 2nd sel bit
+    DMux(in=first0, sel=sel[1], a=second00, b=second01);
+    DMux(in=first1, sel=sel[1], a=second10, b=second11);
+
+    // finally we split into 4 using the last sel bit
+    DMux(in=second00, sel=sel[2], a=a, b=e);
+    DMux(in=second01, sel=sel[2], a=c, b=g);
+    DMux(in=second10, sel=sel[2], a=b, b=f);
+    DMux(in=second11, sel=sel[2], a=d, b=h);
+}
