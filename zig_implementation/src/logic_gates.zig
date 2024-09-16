@@ -20,40 +20,46 @@ pub fn And(a: u2, b: u2) u2 {
     return Not(nand);
 }
 
+pub fn Or(a: u2, b: u2) u2 {
+    return Nand(Not(a), Not(b));
+}
+
+pub fn Xor(a: u2, b: u2) u2 {
+    const notA = Not(a);
+    const notB = Not(b);
+    return Or(And(notA, b), And(a, notB));
+}
+
 // [TESTING]
-test "Nand Gate Test" {
-    const testCases = [_][3]u2{
-        .{ 0, 0, 1 },
-        .{ 0, 1, 1 },
-        .{ 1, 0, 1 },
-        .{ 1, 1, 0 },
-    };
-
-    for (testCases) |v| {
-        try std.testing.expectEqual(Nand(v[0], v[1]), v[2]);
-    }
+test "NAND gate test" {
+    try std.testing.expectEqual(1, Nand(0, 0));
+    try std.testing.expectEqual(1, Nand(0, 1));
+    try std.testing.expectEqual(1, Nand(1, 0));
+    try std.testing.expectEqual(0, Nand(1, 1));
 }
 
-test "Not Gate Test" {
-    const testCases = [_][2]u2{
-        .{ 0, 1 },
-        .{ 1, 0 },
-    };
-
-    for (testCases) |v| {
-        try std.testing.expectEqual(Not(v[0]), v[1]);
-    }
+test "NOT gate test" {
+    try std.testing.expectEqual(0, Not(1));
+    try std.testing.expectEqual(1, Not(0));
 }
 
-test "And Gate Test" {
-    const testCases = [_][3]u2{
-        .{ 0, 0, 0 },
-        .{ 0, 1, 0 },
-        .{ 1, 0, 0 },
-        .{ 1, 1, 1 },
-    };
+test "AND gate test" {
+    try std.testing.expectEqual(0, And(0, 0));
+    try std.testing.expectEqual(0, And(0, 1));
+    try std.testing.expectEqual(0, And(1, 0));
+    try std.testing.expectEqual(1, And(1, 1));
+}
 
-    for (testCases) |v| {
-        try std.testing.expectEqual(And(v[0], v[1]), v[2]);
-    }
+test "OR gate test" {
+    try std.testing.expectEqual(0, Or(0, 0));
+    try std.testing.expectEqual(1, Or(0, 1));
+    try std.testing.expectEqual(1, Or(1, 0));
+    try std.testing.expectEqual(1, Or(1, 1));
+}
+
+test "XOR gate test" {
+    try std.testing.expectEqual(0, Xor(0, 0));
+    try std.testing.expectEqual(1, Xor(0, 1));
+    try std.testing.expectEqual(1, Xor(1, 0));
+    try std.testing.expectEqual(0, Xor(1, 1));
 }
