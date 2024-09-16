@@ -1,0 +1,41 @@
+CHIP FullAdder {
+    IN a, b, c;  // 1-bit inputs
+    OUT sum,     // Right bit of a + b + c
+        carry;   // Left bit of a + b + c
+
+    PARTS:
+    Not(in=a, out=nota);
+    Not(in=b, out=notb);
+    Not(in=c, out=notc);
+    
+    // formula for SUM from the truth table:
+    // a'b'c + a'bc' + ab'c' + abc
+
+    // simplified version: a'(b'c + bc') + a(b'c' + bc)
+    // a'(b'c + bc') = out1
+    And(a=notb, b=c, out=notbandc);
+    And(a=b, b=notc, out=bnotc);
+    Or(a=notbandc, b=bnotc, out=notbandcorbnotc);
+    And(a=nota, b=notbandcorbnotc, out=sum1);
+
+    // a(b'c' + bc) = out2
+    And(a=notb, b=notc, out=notbandnotc);
+    And(a=b, b=c, out=bandc);
+    Or(a=notbandnotc, b=bandc, out=or2);
+    And(a=a, b=or2, out=sum2);
+
+    // we OR to get the final
+    Or(a=sum1, b=sum2, out=sum);
+
+    // Formula for CARRY:
+    // a'bc + ab'c + abc' + abc
+    // simplified:
+    // c(a'b + ab') + ab
+    And(a=nota, b=b, out=notaandb);
+    And(a=a, b=notb, out=aandnotb);
+    Or(a=notaandb, b=aandnotb, out=or1);
+    And(a=c, b=or1, out=carry1);
+
+    And(a=a, b=b, out=carry2);
+    Or(a=carry1, b=carry2, out=carry);
+}

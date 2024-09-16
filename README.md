@@ -25,10 +25,10 @@ Building a general purpose computer from the ground (nand gates) up
 
 ## Project 2 - Arithmetic Logic Unit
 
-- [ ] HalfAdder
-- [ ] FullAdder
-- [ ] Add16
-- [ ] Inc16
+- [x] HalfAdder
+- [x] FullAdder
+- [x] Add16
+- [x] Inc16
 - [ ] ALU
 
 ## Project 3 - Memory
