@@ -7,7 +7,7 @@ Building a general purpose computer from the ground (nand gates) up
 
 ## Zig Implementation
 
-Recreating everything in zig for fun. Also creating gates, memory, etc.. from the ground up.
+Recreating everything in zig just for fun. Also implementing virtual gates, memory, etc.. from the ground up.
 
 ## Project 1 - Elementary Logic Gates
 
