@@ -1,4 +1,5 @@
 const std = @import("std");
+const expectEqual = std.testing.expectEqual;
 
 /// Base `NAND` gate
 ///
@@ -57,6 +58,23 @@ pub fn Xor(a: u1, b: u1) u1 {
     return Or(And(notA, b), And(a, notB));
 }
 
+/// `MUX` - Multiplexor
+///
+/// It returns a or b depending on the selection `sel` bit
+///
+///     sel = 0 // returns a
+///     sel = 1 // returns b
+pub fn Mux(a: u1, b: u1, sel: u1) u1 {
+    // formula from truth table:
+    // (a'bs) + (ab's') + (abs') + (abs)
+
+    // simplify:
+    // bs(a' + a) + as'(b' + b)
+    // bs(1) + as'(1)
+    // bs + as'
+    return Or(And(b, sel), And(a, Not(sel)));
+}
+
 // [TESTING]
 test "NAND gate test" {
     try std.testing.expectEqual(1, Nand(0, 0));
@@ -89,4 +107,15 @@ test "XOR gate test" {
     try std.testing.expectEqual(1, Xor(0, 1));
     try std.testing.expectEqual(1, Xor(1, 0));
     try std.testing.expectEqual(0, Xor(1, 1));
+}
+
+test "MUX chip test" {
+    try expectEqual(0, Mux(0, 0, 0));
+    try expectEqual(0, Mux(0, 0, 1));
+    try expectEqual(0, Mux(0, 1, 0));
+    try expectEqual(1, Mux(0, 1, 1));
+    try expectEqual(1, Mux(1, 0, 0));
+    try expectEqual(0, Mux(1, 0, 1));
+    try expectEqual(1, Mux(1, 1, 0));
+    try expectEqual(1, Mux(1, 1, 1));
 }
