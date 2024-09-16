@@ -3,7 +3,11 @@
 Building a general purpose computer from the ground (nand gates) up
 
 - [x] => Implemented
-- [ ] => Not yet implemented 
+- [ ] => Not yet implemented
+
+## Zig Implementation
+
+Recreating everything in zig for fun. Also creating gates, memory, etc.. from the ground up.
 
 ## Project 1 - Elementary Logic Gates
 
