@@ -104,6 +104,48 @@ pub const Gates = struct {
     pub fn Not16(in: u16) u16 {
         return ~in;
     }
+
+    /// `AND16` - 16 bit AND gate
+    ///
+    /// Takes two 16 bit input and `AND`' every single bit.
+    pub fn And16(a: u16, b: u16) u16 {
+        return (a & b);
+    }
+
+    /// `OR16` - 16 bit OR gate
+    ///
+    /// `OR`s two 16 bit input.
+    pub fn Or16(a: u16, b: u16) u16 {
+        return (a | b);
+    }
+
+    /// `MUX16` - 16 bit Mux
+    ///
+    /// Returns a or b depending on the selection bit `sel`
+    ///
+    ///     sel = 0 // returns a
+    ///     sel = 1 // returns b
+    pub fn Mux16(a: u16, b: u16, sel: u1) u16 {
+        // I do this cuz i'm lazy doing bit shifting and stuff
+        switch (sel) {
+            0 => return a,
+            else => return b,
+        }
+    }
+
+    /// `OR8WAY` - 8 inputs OR gate
+    ///
+    /// Performs `or` in all 8 bits,
+    /// If any of them is 1, then output will be 1
+    pub fn Or8Way(in: u8) u1 {
+        // reasoning: if a single value inside `in` is 1, then output is 1
+        // so a doing an if statement instead of doing multiple bit shifting
+        // should in theory should work just fine.
+        switch (in) {
+            0 => return 0,
+            else => return 1,
+        }
+    }
 };
 
 // [TESTING]
@@ -196,3 +238,19 @@ test "NOT16 chip test" {
     result = Gates.Not16(0b0001001000110100);
     try expectEqual(expected, result);
 }
+
+test "AND16 chip test" {
+    try expectEqual(0b0000_0000_0000_0000, Gates.And16(0, 0));
+    try expectEqual(0b0000_0000_0000_0000, Gates.And16(0, 0b1111_1111_1111_1111));
+    try expectEqual(0b1111_1111_1111_1111, Gates.And16(0b1111_1111_1111_1111, 0b1111_1111_1111_1111));
+    try expectEqual(0b0000000000000000, Gates.And16(0b1010101010101010, 0b0101010101010101));
+    try expectEqual(0b0000110011000000, Gates.And16(0b0011110011000011, 0b0000111111110000));
+    try expectEqual(0b0001000000110100, Gates.And16(0b0001001000110100, 0b1001100001110110));
+}
+
+// Mux16
+// Or8Way
+// Mux4Way16
+// Mux8Way16
+// Dmux4Way
+// Dmux8Way
