@@ -2,9 +2,6 @@
 
 Building a general purpose computer from the ground (nand gates) up
 
-- [x] => Implemented
-- [ ] => Not yet implemented
-
 ## Zig Implementation
 
 ```
@@ -12,12 +9,17 @@ Recreating everything in ZIG just for fun. Also implementing virtual gates, memo
 ```
 
 ### Elementary Logic Gates - Implemented ✅
+
+> All tests passing
 ![logic gates - zig](https://github.com/user-attachments/assets/0a6a5f89-3b18-466a-8809-4cc792deada8)
 
 ### Arithmetic Logic Unit - Not yet implemented ❌
 ### Memory - Not yet implemented ❌
 
 ## Nand To Tetris Progress
+
+- [x] => Implemented
+- [ ] => Not yet implemented
 
 ### Project 1 - Elementary Logic Gates
 
