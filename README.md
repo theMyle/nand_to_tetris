@@ -8,14 +8,13 @@ Building a general purpose computer from the ground (nand gates) up
 Recreating everything in ZIG just for fun. Also implementing virtual gates, memory, etc.. from the ground up.
 ```
 
-### Elementary Logic Gates - Implemented ✅
-
-> All tests passing
+> Elementary Logic Gates - All tests passing
 
 ![logic gates - zig](https://github.com/user-attachments/assets/0a6a5f89-3b18-466a-8809-4cc792deada8)
 
-### Arithmetic Logic Unit - Not yet implemented ❌
-### Memory - Not yet implemented ❌
+> Arithmetic Logic Unit - Not yet implemented ❌
+
+> Memory - Not yet implemented ❌
 
 ## Nand To Tetris Progress
 
