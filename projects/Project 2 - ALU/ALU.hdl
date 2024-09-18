@@ -1,0 +1,47 @@
+CHIP ALU {
+    IN  
+        x[16], y[16],  // 16-bit inputs        
+        zx, // zero the x input?
+        nx, // negate the x input?
+        zy, // zero the y input?
+        ny, // negate the y input?
+        f,  // compute (out = x + y) or (out = x & y)?
+        no; // negate the out output?
+    OUT 
+        out[16], // 16-bit output
+        zr,      // if (out == 0) equals 1, else 0
+        ng;      // if (out < 0)  equals 1, else 0
+
+    PARTS:
+        // zero x if needed
+        And16(a=x, b=false, out=ZeroX);        
+        Mux16(a=x, b=ZeroX, sel=zx, out=x1);    
+        
+        // negate x if needed
+        Not16(in=x1, out=NotX1);               
+        Mux16(a=x1, b=NotX1, sel=nx, out=FinalX);  
+
+        // zero y if needed
+        And16(a=y, b=false, out=ZeroY);
+        Mux16(a=y, b=ZeroY, sel=zy, out=y1);
+
+        // negate y if needed
+        Not16(in=y1, out=NotY1);
+        Mux16(a=y1, b=NotY1, sel=ny, out=FinalY);
+
+        // x + y - two's compliment
+        Add16(a = FinalX, b =FinalY, out =XaddY);
+
+        // x & y
+        And16(a=FinalX, b=FinalY, out=XandY);
+
+        // if (f ==1 ) -> x + y
+        // if (f == 0) -> x & y
+        Mux16(a=XandY, b=XaddY, sel=f, out=out1);
+
+        // negate output based on `no` bit
+        Not16(in=out1, out=notOut1);
+        Mux16(a=out1, b=notOut1, sel=no, out=out);
+
+        // took me a while that you can use Mux as a conditional
+}

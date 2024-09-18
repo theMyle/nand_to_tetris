@@ -33,7 +33,7 @@ Recreating everything in zig just for fun. Also implementing virtual gates, memo
 - [x] FullAdder
 - [x] Add16
 - [x] Inc16
-- [ ] ALU
+- [x] ALU
 
 ## Project 3 - Memory
 
