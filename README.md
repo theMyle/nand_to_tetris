@@ -5,7 +5,8 @@ Building a general purpose computer from the ground (nand gates) up
 ## Zig Implementation
 
 ```
-Recreating everything in ZIG just for fun. Also implementing virtual gates, memory, etc.. from the ground up.
+Recreating everything in ZIG just for fun. Also implementing
+virtual logic gates, ALU, memory, etc.. from the ground up.
 ```
 
 > Elementary Logic Gates - All Tests Passing ✅
