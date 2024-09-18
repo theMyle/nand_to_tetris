@@ -9,7 +9,15 @@ Building a general purpose computer from the ground (nand gates) up
 
 Recreating everything in zig just for fun. Also implementing virtual gates, memory, etc.. from the ground up.
 
-## Project 1 - Elementary Logic Gates
+### Elementary Logic Gates - Implemented ✅
+
+
+### Arithmetic Logic Unit - Not yet implemented ❌
+### Memory - Not yet implemented ❌
+
+## Nand To Tetris Progress
+
+### Project 1 - Elementary Logic Gates
 
 - [x] Not
 - [x] And
@@ -27,7 +35,7 @@ Recreating everything in zig just for fun. Also implementing virtual gates, memo
 - [x] DMux4Way
 - [x] DMux8Way
 
-## Project 2 - Arithmetic Logic Unit
+### Project 2 - Arithmetic Logic Unit
 
 - [x] HalfAdder
 - [x] FullAdder
@@ -35,7 +43,7 @@ Recreating everything in zig just for fun. Also implementing virtual gates, memo
 - [x] Inc16
 - [x] ALU
 
-## Project 3 - Memory
+### Project 3 - Memory
 
 - [ ] Bit
 - [ ] Register
