@@ -128,8 +128,8 @@ pub const Gates = struct {
     pub fn Mux16(a: u16, b: u16, sel: u1) u16 {
         // I do this cuz i'm lazy doing bit shifting and stuff
         switch (sel) {
-            0 => return a,
-            else => return b,
+            0b0 => return a,
+            0b1 => return b,
         }
     }
 
@@ -144,6 +144,90 @@ pub const Gates = struct {
         switch (in) {
             0 => return 0,
             else => return 1,
+        }
+    }
+
+    /// `MUX4WAY16` - 4 inputs, 16 bit, MUX chip
+    ///
+    /// Returns an input depending on the `sel` bit.
+    ///
+    ///     sel(0) => a
+    ///     sel(1) => b
+    ///     sel(2) => c
+    ///     sel(3) => d
+    pub fn Mux4Way16(a: u16, b: u16, c: u16, d: u16, sel: u2) u16 {
+        switch (sel) {
+            0b00 => return a,
+            0b01 => return b,
+            0b10 => return c,
+            0b11 => return d,
+        }
+    }
+
+    /// `MUX8WAY16` - 8 inputs, 16 bit, MUX chip
+    ///
+    /// Returns an input depending on the `sel` bit.
+    ///
+    ///     sel(0) => a
+    ///     sel(1) => b
+    ///     sel(2) => c
+    ///     sel(3) => d
+    ///     sel(4) => e
+    ///     sel(5) => f
+    ///     sel(6) => g
+    ///     sel(7) => h
+    pub fn Mux8Way16(a: u16, b: u16, c: u16, d: u16, e: u16, f: u16, g: u16, h: u16, sel: u3) u16 {
+        switch (sel) {
+            0b000 => return a,
+            0b001 => return b,
+            0b010 => return c,
+            0b011 => return d,
+            0b100 => return e,
+            0b101 => return f,
+            0b110 => return g,
+            0b111 => return h,
+        }
+    }
+
+    /// DMux4Way - 4 way output demultiplexor
+    ///
+    /// Transfers the input (`in`) into 1 of the 4 output paths depending on the `sel` bit
+    ///
+    ///     sel(0) => in -> outA
+    ///     sel(1) => in -> outB
+    ///     sel(2) => in -> outC
+    ///     sel(3) => in -> outD
+    pub fn DMux4Way(in: u1, sel: u2, outA: *u1, outB: *u1, outC: *u1, outD: *u1) void {
+        switch (sel) {
+            0b00 => outA.* = in,
+            0b01 => outB.* = in,
+            0b10 => outC.* = in,
+            0b11 => outD.* = in,
+        }
+    }
+
+    /// DMux8Way - 8 way output demultiplexor
+    ///
+    /// Transfers the input (`in`) into 1 of the 8 output paths depending on the `sel` bit
+    ///
+    ///     sel(0) => in -> outA
+    ///     sel(1) => in -> outB
+    ///     sel(2) => in -> outC
+    ///     sel(3) => in -> outD
+    ///     sel(4) => in -> outE
+    ///     sel(5) => in -> outF
+    ///     sel(6) => in -> outG
+    ///     sel(7) => in -> outH
+    pub fn DMux8Way(in: u1, sel: u3, outA: *u1, outB: *u1, outC: *u1, outD: *u1, outE: *u1, outF: *u1, outG: *u1, outH: *u1) void {
+        switch (sel) {
+            0b000 => outA.* = in,
+            0b001 => outB.* = in,
+            0b010 => outC.* = in,
+            0b011 => outD.* = in,
+            0b100 => outE.* = in,
+            0b101 => outF.* = in,
+            0b110 => outG.* = in,
+            0b111 => outH.* = in,
         }
     }
 };
@@ -248,9 +332,91 @@ test "AND16 chip test" {
     try expectEqual(0b0001000000110100, Gates.And16(0b0001001000110100, 0b1001100001110110));
 }
 
-// Mux16
-// Or8Way
-// Mux4Way16
-// Mux8Way16
-// Dmux4Way
-// Dmux8Way
+test "MUX16 chip test" {
+    try expectEqual(0, Gates.Mux16(0, 0, 0));
+    try expectEqual(0, Gates.Mux16(0, 0, 1));
+    try expectEqual(0, Gates.Mux16(0, 20, 0));
+    try expectEqual(20, Gates.Mux16(0, 20, 1));
+    try expectEqual(33, Gates.Mux16(33, 0, 0));
+    try expectEqual(11, Gates.Mux16(33, 11, 1));
+}
+
+test "OR8WAY chip test" {
+    try expectEqual(0, Gates.Or8Way(0));
+    try expectEqual(1, Gates.Or8Way(0b1111_1111));
+    try expectEqual(1, Gates.Or8Way(0b0001_0000));
+    try expectEqual(1, Gates.Or8Way(0b0000_0001));
+}
+
+test "MUX4WAY16 chip test" {
+    try expectEqual(20, Gates.Mux4Way16(20, 0, 0, 0, 0));
+    try expectEqual(30, Gates.Mux4Way16(20, 30, 0, 0, 1));
+    try expectEqual(40, Gates.Mux4Way16(20, 30, 40, 0, 2));
+    try expectEqual(50, Gates.Mux4Way16(20, 30, 40, 50, 3));
+}
+
+test "MUX8WAY16 chip test" {
+    try expectEqual(1, Gates.Mux8Way16(1, 2, 3, 4, 5, 6, 7, 8, 0));
+    try expectEqual(2, Gates.Mux8Way16(1, 2, 3, 4, 5, 6, 7, 8, 1));
+    try expectEqual(3, Gates.Mux8Way16(1, 2, 3, 4, 5, 6, 7, 8, 2));
+    try expectEqual(4, Gates.Mux8Way16(1, 2, 3, 4, 5, 6, 7, 8, 3));
+
+    try expectEqual(5, Gates.Mux8Way16(1, 2, 3, 4, 5, 6, 7, 8, 4));
+    try expectEqual(6, Gates.Mux8Way16(1, 2, 3, 4, 5, 6, 7, 8, 5));
+    try expectEqual(7, Gates.Mux8Way16(1, 2, 3, 4, 5, 6, 7, 8, 6));
+    try expectEqual(8, Gates.Mux8Way16(1, 2, 3, 4, 5, 6, 7, 8, 7));
+}
+
+test "DMUX4WAY chip test" {
+    var outA: u1 = undefined;
+    var outB: u1 = undefined;
+    var outC: u1 = undefined;
+    var outD: u1 = undefined;
+
+    Gates.DMux4Way(1, 0, &outA, &outB, &outC, &outD);
+    try expectEqual(1, outA);
+
+    Gates.DMux4Way(1, 1, &outA, &outB, &outC, &outD);
+    try expectEqual(1, outB);
+
+    Gates.DMux4Way(1, 2, &outA, &outB, &outC, &outD);
+    try expectEqual(1, outC);
+
+    Gates.DMux4Way(1, 3, &outA, &outB, &outC, &outD);
+    try expectEqual(1, outD);
+}
+
+test "DMUX8WAY chip test" {
+    var outA: u1 = undefined;
+    var outB: u1 = undefined;
+    var outC: u1 = undefined;
+    var outD: u1 = undefined;
+    var outE: u1 = undefined;
+    var outF: u1 = undefined;
+    var outG: u1 = undefined;
+    var outH: u1 = undefined;
+
+    Gates.DMux8Way(1, 0, &outA, &outB, &outC, &outD, &outE, &outF, &outG, &outH);
+    try expectEqual(1, outA);
+
+    Gates.DMux8Way(1, 1, &outA, &outB, &outC, &outD, &outE, &outF, &outG, &outH);
+    try expectEqual(1, outB);
+
+    Gates.DMux8Way(1, 2, &outA, &outB, &outC, &outD, &outE, &outF, &outG, &outH);
+    try expectEqual(1, outC);
+
+    Gates.DMux8Way(1, 3, &outA, &outB, &outC, &outD, &outE, &outF, &outG, &outH);
+    try expectEqual(1, outD);
+
+    Gates.DMux8Way(1, 4, &outA, &outB, &outC, &outD, &outE, &outF, &outG, &outH);
+    try expectEqual(1, outE);
+
+    Gates.DMux8Way(1, 5, &outA, &outB, &outC, &outD, &outE, &outF, &outG, &outH);
+    try expectEqual(1, outF);
+
+    Gates.DMux8Way(1, 6, &outA, &outB, &outC, &outD, &outE, &outF, &outG, &outH);
+    try expectEqual(1, outG);
+
+    Gates.DMux8Way(1, 7, &outA, &outB, &outC, &outD, &outE, &outF, &outG, &outH);
+    try expectEqual(1, outH);
+}
