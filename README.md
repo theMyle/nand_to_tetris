@@ -10,7 +10,7 @@ Recreating everything in ZIG just for fun. Also implementing virtual gates, memo
 
 > Elementary Logic Gates - All Tests Passing ✅
 
-![logic gates - zig](https://github.com/user-attachments/assets/0a6a5f89-3b18-466a-8809-4cc792deada8)
+![logic_gates.zig](https://github.com/user-attachments/assets/5655931c-fb82-4e98-a9d8-a52647b8489f)
 
 > Arithmetic Logic Unit - Not yet implemented ❌
 
