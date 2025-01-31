@@ -1,6 +1,6 @@
 # Nand To Tetris Project Progression
 
-Building a general purpose computer from the ground (nand gates) up
+Building a general purpose computer from the ground (from nand gates to jesus christ) up
 
 ## Zig Implementation
 
@@ -14,7 +14,6 @@ virtual logic gates, ALU, memory, etc.. from the ground up.
 ![logic_gates.zig](https://github.com/user-attachments/assets/5655931c-fb82-4e98-a9d8-a52647b8489f)
 
 > Arithmetic Logic Unit - Not yet implemented ❌
-
 > Memory - Not yet implemented ❌
 
 ## Nand To Tetris Progress

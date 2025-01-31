@@ -1,3 +1,14 @@
+// Summary
+//
+// I optimized some functions a bit but I think most of it are unoptimized like imagine a freaking u1
+// data type ;) Idk wtf is that in the low level side of things but it sure feels right when thinking
+// about representing a single bit
+//
+// Too much unnecessary testing, I would've finished quicker without those.
+// Welp I guess it's alright since I learned a little more about zig along the way ;)
+//
+// Just gonna do a simple review and then finish the ALU
+
 const std = @import("std");
 const expectEqual = std.testing.expectEqual;
 
